@@ -1,0 +1,38 @@
+/*设置居中样式，宽度为600px,高度自适应*/
+.layout{
+    margin: 0 auto;
+    width: 600px;
+}
+/*设置各个按钮的共有样式，且利用inline-block和padding将父容器撑开*/
+.button{
+    text-decoration: none;
+    padding:8px 10px;
+    border-radius: 3px;
+    display: inline-block;
+}
+/*设置出鼠标悬停上去的盒阴影效果*/
+.button:hover{
+    box-shadow: 0 8px 16px #888888;
+}
+
+/*设置各个按钮的背景颜色和文本颜色*/
+.steal{
+    background-color: #009688;
+    color: #fff;
+}
+.yellow{
+    background-color: yellow;
+    color: #000;
+}
+.orange{
+    background-color: orange;
+    color: #000;
+}
+.red{
+    background-color: red;
+    color: #fff;
+}
+.green{
+    background-color: green;
+    color: #fff;
+}
