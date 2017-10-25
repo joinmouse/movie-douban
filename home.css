@@ -1,0 +1,74 @@
+body {
+  position: relative;
+}
+.main {
+  height: calc(100vh - 50px);
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+.main>section {
+  display: none;
+}
+.main>section:first-child {
+  display: block;
+}
+.item {
+  padding: 0 10px;
+  border-bottom: 1px solid #ccc;
+}
+.item > a{
+  display: block;
+  display: flex;
+}
+.item .cover,
+.item .cover img {
+  width: 80px;
+}
+.item .detail {
+  flex: 1;
+  padding-left: 10px;
+}
+.detail h2 {
+  font-size: 16px;
+}
+.detail .extra {
+  color: #999;
+  margin-top: 5px;
+}
+.detail .score {
+  color: red;
+}
+.loading {
+  padding: 5px;
+  text-align: center;
+  display: none;
+}
+.loading svg {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  animation: 1s rotate linear infinite;
+}
+@keyframes rotate {
+  0% { transform: rotate(0deg) }
+  100% { transform: rotate(360deg) }
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  display: flex;
+}
+footer>div {
+  flex: 1;
+  text-align: center;
+}
+footer>div>span {
+  display: block;
+  padding-top: 5px;
+}
+footer>.active {
+  color: red;
+}
