@@ -13,7 +13,8 @@ body {
   display: block;
 }
 .item {
-  padding: 0 10px;
+  padding: 0 20px;
+  margin: 0 20px;
   border-bottom: 1px solid #ccc;
 }
 .item > a{
@@ -48,6 +49,7 @@ body {
   width: 20px;
   height: 20px;
   animation: 1s rotate linear infinite;
+  padding-bottom: 5px;
 }
 @keyframes rotate {
   0% { transform: rotate(0deg) }
