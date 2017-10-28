@@ -12,6 +12,12 @@
 </head>
 
 <body>
+  <header>
+    <div class="logo">
+      <img src="http://oyfsvfxoa.bkt.clouddn.com/douban-app-logo.png" alt="logo">
+    </div>
+    <a href="https://movie.douban.com"><h2>豆瓣电影</h2></a>
+  </header>
   <div class="main">
     <section>
       <div id="top250">
@@ -71,8 +77,17 @@
         -->
         </div>
     </section>
-    <section>
-      <div id="search">
+    <section id="search">
+      <div class="search-area">
+        <input type="text" placeholder="搜索电影"><span class="button">搜索</span>
+      </div>
+      <div class="search-result">
+        <div class="loading">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-loading"></use>
+          </svg>
+          <p>下拉加载更多影片</p>
+        </div>
       </div>
     </section>
   </div>

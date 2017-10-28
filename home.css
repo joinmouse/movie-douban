@@ -1,6 +1,26 @@
 body {
   position: relative;
 }
+header {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  background: white;
+}
+header .logo {
+  padding-left: 20px;
+}
+header .logo>img {
+  width: 30px;
+  height: 30px;
+}
+header h2 {
+  padding-right: 20px;
+  line-height: 30px;
+  height: 30px;
+  color: green;
+}
+
 .main {
   height: calc(100vh - 50px);
   overflow: scroll;
@@ -55,6 +75,34 @@ body {
   100% { transform: rotate(360deg) }
 }
 
+#search {
+  height: calc(100% - 45px);
+}
+section .search-area{
+  color: #333;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+}
+section .search-area input {
+  width: calc(100% - 50px);
+  padding: 8px;
+  background-color: #eee;
+  border: none;
+  border-radius: 2px;
+  box-shadow: none;
+  outline: none;
+}
+section .search-area .button{
+  position: absolute;
+  right: 0;
+  padding: 8px 10px;
+  background: green;
+  color: #fff;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
 footer {
   position: absolute;
   bottom: 0;
@@ -71,8 +119,8 @@ footer>div>span {
   padding-top: 5px;
 }
 footer>.active {
-  color: red;
+  color: green;
 }
 footer>.active svg {
-  fill: red;
+  fill: green;
 }
