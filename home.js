@@ -27,7 +27,6 @@ Top250.prototype.start = function(){
     $('.loading').hide()
   })
 }
-
 Top250.prototype.setData = function(data){
   data.subjects.forEach(function(movie){
     var template = `
@@ -54,13 +53,13 @@ Top250.prototype.setData = function(data){
       `
       var $node = $(template)
       $node.find('.cover img').attr('src',movie.images.small)
-      console.log(movie.images.small)
+      //console.log(movie.images.small)
       $node.find('.detail h2').text(movie.title)
-      console.log(movie.title)
+      //console.log(movie.title)
       $node.find('.score').text(movie.rating.average)
-      console.log(movie.rating.average)
+      //console.log(movie.rating.average)
       $node.find('.collect').text(movie.collect_count)
-      console.log(movie.collect_count)
+      //console.log(movie.collect_count)
       $node.find('.year').text(movie.year)
       $node.find('.type').text(movie.genres.join(' / '))
       $node.find('.director').text(function(){
@@ -88,6 +87,7 @@ function UsBox() {
   this.start()
 }
 UsBox.prototype.start = function(){
+  console.log(15)
   if(this.isLoading) return
   this.isLoading = true
   $('.loading').show()
@@ -98,7 +98,7 @@ UsBox.prototype.start = function(){
     dataType: 'jsonp'
   }).done(function(res){
     console.log(res)
-    self.setData(res)
+    self.getData(res)
   }).fail(function(){
     console.log('error...')
   }).always(function(){
@@ -106,7 +106,10 @@ UsBox.prototype.start = function(){
     $('.loading').hide()
   })
 }
-UsBox.prototype.setData = function(){
+UsBox.prototype.getData = function(data){
+  console.log(111)
+  console.log(data.subjects)
+  console.log(222)
   data.subjects.forEach(function(movie){
     var template = `
       <div class="item">
@@ -117,7 +120,6 @@ UsBox.prototype.setData = function(){
           <div class="detail">
             <h2>霸王别姬</h2>
             <div class="extra">
-              <span class="score"></span>分 /
               <span class="collect"></span>收藏
             </div>
             <div class="extra">
@@ -131,26 +133,25 @@ UsBox.prototype.setData = function(){
       </div>
       `
       var $node = $(template)
-      $node.find('.cover img').attr('src',movie.images.small)
-      console.log(movie.images.small)
-      $node.find('.detail h2').text(movie.title)
-      console.log(movie.title)
-      $node.find('.score').text(movie.rating.average)
-      console.log(movie.rating.average)
-      $node.find('.collect').text(movie.collect_count)
+      $node.find('.cover img').attr('src',movie.subject.images.small)
+      //console.log(movie.subject.images.small)
+      $node.find('.detail h2').text(movie.subject.title)
+      //console.log(movie.title)
+      $node.find('.collect').text(movie.subject.collect_count)
       console.log(movie.collect_count)
-      $node.find('.year').text(movie.year)
-      $node.find('.type').text(movie.genres.join(' / '))
+      $node.find('.year').text(movie.subject.year)
+      $node.find('.type').text(movie.subject.genres.join(' / '))
+      console.log(movie)
       $node.find('.director').text(function(){
         var directivesArr = []
-        movie.directors.forEach(function(item){
+        movie.subject.directors.forEach(function(item){
           directivesArr.push(item.name)
         })
         return directivesArr.join(' 、')
       })
       $node.find('.actor').text(function(){
         var actorArr = []
-        movie.casts.forEach(function(item){
+        movie.subject.casts.forEach(function(item){
           actorArr.push(item.name)
         })
         return actorArr.join(' 、')
@@ -163,12 +164,10 @@ UsBox.prototype.setData = function(){
 
 
 
-
-
-
-
 var top250 = new Top250()
 top250.start()
+var usBox = new UsBox()
+usBox.start()
 
 $('.main').on('scroll',function(){
   if($('section').eq(0).height()-10 <= $('.main').scrollTop()+$('.main').height()){

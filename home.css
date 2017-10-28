@@ -13,8 +13,7 @@ body {
   display: block;
 }
 .item {
-  padding: 0 20px;
-  margin: 0 20px;
+  padding: 0 15px;
   border-bottom: 1px solid #ccc;
 }
 .item > a{
@@ -73,4 +72,7 @@ footer>div>span {
 }
 footer>.active {
   color: red;
+}
+footer>.active svg {
+  fill: red;
 }
