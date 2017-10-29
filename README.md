@@ -19,3 +19,14 @@ chrome浏览器下请设置为移动端设备查看：
 - 展示电影排行榜Top250
 - 展示北美最新电影票房榜
 - 搜索电影
+
+## 效果展示
+[1](http://oyfsvfxoa.bkt.clouddn.com/1.png)
+---
+[2](http://oyfsvfxoa.bkt.clouddn.com/2.png)
+---
+[3](http://oyfsvfxoa.bkt.clouddn.com/3.png)
+---
+[4](http://oyfsvfxoa.bkt.clouddn.com/4.png)
+---
+[5](http://oyfsvfxoa.bkt.clouddn.com/5.png)
