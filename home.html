@@ -18,9 +18,10 @@
     </div>
     <a href="https://movie.douban.com"><h2>豆瓣电影</h2></a>
   </header>
+
   <div class="main">
-    <section>
-      <div id="top250">
+    <section id="top250">
+      <div class="container">
       <!--
       <div class="item">
         <a href="">
@@ -51,8 +52,8 @@
         <p>下拉加载更多影片</p>
       </div>
     </section>
-    <section>
-      <div id="UsBox">
+    <section id="usBox">
+      <div class="container">
         <!--
         <div class="item">
           <a href="">
@@ -87,10 +88,12 @@
           <use xlink:href="#icon-loading"></use>
         </svg>
       </div>
+
     </section>
   </div>
+
   <footer>
-    <div class="top active">
+    <div class="item active">
       <span>
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-top"></use>
@@ -98,7 +101,7 @@
       </span>
       <span>Top250</span>
     </div>
-    <div class="North-America">
+    <div class="item">
       <span>
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-beimei"></use>
@@ -106,7 +109,7 @@
       </span>
       <span>北美</span>
     </div>
-    <div class="search">
+    <div class="item">
       <span>
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-search"></use>
@@ -116,7 +119,6 @@
     </div>
   </footer>
 
-  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
   <script src="./dist/js/home.js"></script>
 </body>
 </html>

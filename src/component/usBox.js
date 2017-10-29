@@ -1,3 +1,58 @@
+var Common = require("./common.js");
+
+
+var UsBox = (function(){
+    function usbox(){
+        this.$target = $('#usBox');
+        this.$content = this.$target.find('.container');
+        this.start()
+    }
+
+    usbox.prototype = {
+        start: function(){
+            var _this = this;
+            this.getData(function(data){
+               _this.render(data); 
+            })
+        },
+
+        getData: function(callback){
+             var _this = this;
+            _this.$target.find('.loading').show();
+            $.ajax({
+              url: '//api.douban.com/v2/movie/us_box',
+              dataType: 'jsonp'
+            }).done(function(ret){
+              console.log(ret)
+              // this.appendHtml(ret);
+              callback&&callback(ret);     
+            }).fail(function(){
+              console.log('数据异常!')
+            }).always(function(){
+              _this.$target.find('.loading').hide();
+            })
+        },
+
+        render: function(data){
+            var _this = this;
+            data.subjects.forEach(function(movie) {
+                _this.$content.append(Common.createNode(movie.subject));
+            });
+        }
+    }
+
+
+    return {
+        init: function(){
+            new usbox();
+        }
+    }
+})()
+
+module.exports = UsBox
+
+
+/* 面向对象实现单页面效果
 var UsBox = (function(){
   function usBox() {
     this.index = 0,
@@ -75,11 +130,6 @@ var UsBox = (function(){
         $('#UsBox').append($node)
       })
   }
-  $('.main').on('scroll',function(){
-    if($('section').eq(0).height()-10 <= $('.main').scrollTop()+$('.main').height()){
-      usBox.start()
-    }
-  })
   return {
     init: function(){
       new usBox()
@@ -88,3 +138,4 @@ var UsBox = (function(){
 })()
 
 module.exports = UsBox;
+*/

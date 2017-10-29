@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2036,7 +2036,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! jQuery v3.2.
       return 1 === arguments.length ? this.off(a, "**") : this.off(b, a || "**", c);
     } }), r.holdReady = function (a) {
     a ? r.readyWait++ : r.ready(!0);
-  }, r.isArray = Array.isArray, r.parseJSON = JSON.parse, r.nodeName = B, "function" == "function" && __webpack_require__(2) && !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+  }, r.isArray = Array.isArray, r.parseJSON = JSON.parse, r.nodeName = B, "function" == "function" && __webpack_require__(3) && !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
     return r;
   }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));var Vb = a.jQuery,
@@ -2047,320 +2047,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! jQuery v3.2.
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function($) {var tab = __webpack_require__(3);
-var top250 = __webpack_require__(4);
-var usBox = __webpack_require__(5);
-var search = __webpack_require__(6);
-
-tab.init($('footer>div'), $('.main>section'));
-top250.init();
-usBox.init();
-search.init();
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {/* globals __webpack_amd_options__ */
-module.exports = __webpack_amd_options__;
-
-/* WEBPACK VAR INJECTION */}.call(exports, {}))
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function($) {var Tab = function () {
-  function tab(tabs, panels) {
-    this.$tabs = tabs; //$('footer>.item')
-    this.$panels = panels;
-    this.bind();
-  }
-  tab.prototype.bind = function () {
-    var self = this;
-    this.$tabs.on('click', function () {
-      var index = $(this).index();
-      $(this).addClass('active').siblings().removeClass('active');
-      self.$panels.hide().eq(index).fadeIn();
-    });
-  };
-  return {
-    init: function (tabs, panels) {
-      new tab(tabs, panels);
-    }
-  };
-}();
-
-module.exports = Tab;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function($) {var Top250 = function () {
-  function top250() {
-    this.index = 0, this.isLoading = false, this.start();
-  }
-  top250.prototype.start = function () {
-    if (this.isLoading) return;
-    this.isLoading = true;
-    $('.loading').show();
-    var self = this;
-    $.ajax({
-      url: 'http://api.douban.com/v2/movie/top250',
-      type: 'GET',
-      data: {
-        start: self.index,
-        count: 20
-      },
-      dataType: 'jsonp'
-    }).done(function (res) {
-      console.log(res);
-      self.renderData(res);
-      self.index = self.index + 20;
-    }).fail(function () {
-      console.log('error...');
-    }).always(function () {
-      self.isLoading = false;
-      $('.loading').hide();
-    });
-  };
-  top250.prototype.renderData = function (data) {
-    data.subjects.forEach(function (movie) {
-      var template = `
-        <div class="item">
-          <a href="">
-            <div class="cover">
-              <img src="" alt="">
-            </div>
-            <div class="detail">
-              <h2>霸王别姬</h2>
-              <div class="extra">
-                <span class="score"></span>分 /
-                <span class="collect"></span>收藏
-              </div>
-              <div class="extra">
-                <span class="year"></span> /
-                <span class="type"></span>
-              </div>
-              <div class="director">导演：张艺谋</div>
-              <div class="actor">主演：张艺谋 葛优</div>
-            </div>
-          </a>
-        </div>
-        `;
-      var $node = $(template);
-      $node.find('.cover img').attr('src', movie.images.small);
-      //console.log(movie.images.small)
-      $node.find('.detail h2').text(movie.title);
-      //console.log(movie.title)
-      $node.find('.score').text(movie.rating.average);
-      //console.log(movie.rating.average)
-      $node.find('.collect').text(movie.collect_count);
-      //console.log(movie.collect_count)
-      $node.find('.year').text(movie.year);
-      $node.find('.type').text(movie.genres.join(' / '));
-      $node.find('.director').text(function () {
-        var directivesArr = [];
-        movie.directors.forEach(function (item) {
-          directivesArr.push(item.name);
-        });
-        return directivesArr.join(' 、');
-      });
-      $node.find('.actor').text(function () {
-        var actorArr = [];
-        movie.casts.forEach(function (item) {
-          actorArr.push(item.name);
-        });
-        return actorArr.join(' 、');
-      });
-
-      $('#top250').append($node);
-    });
-  };
-  $('.main').on('scroll', function () {
-    if ($('section').eq(0).height() - 10 <= $('.main').scrollTop() + $('.main').height()) {
-      top250.start();
-    }
-  });
-  return {
-    init: function () {
-      new top250();
-    }
-  };
-}();
-
-module.exports = Top250;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function($) {var UsBox = function () {
-  function usBox() {
-    this.index = 0, this.isLoading = false, this.start();
-  }
-  usBox.prototype.start = function () {
-    if (this.isLoading) return;
-    this.isLoading = true;
-    $('.loading').show();
-    var self = this;
-    $.ajax({
-      url: 'http://api.douban.com//v2/movie/us_box',
-      type: 'GET',
-      dataType: 'jsonp'
-    }).done(function (res) {
-      console.log(res);
-      self.renderData(res);
-    }).fail(function () {
-      console.log('error...');
-    }).always(function () {
-      self.isLoading = false;
-      $('.loading').hide();
-    });
-  };
-  usBox.prototype.renderData = function (data) {
-    console.log(data.subjects);
-    data.subjects.forEach(function (movie) {
-      var template = `
-        <div class="item">
-          <a href="">
-            <div class="cover">
-              <img src="" alt="">
-            </div>
-            <div class="detail">
-              <h2>霸王别姬</h2>
-              <div class="extra">
-                <span class="collect"></span>收藏
-              </div>
-              <div class="extra">
-                <span class="year"></span> /
-                <span class="type"></span>
-              </div>
-              <div class="director">导演：张艺谋</div>
-              <div class="actor">主演：张艺谋 葛优</div>
-            </div>
-          </a>
-        </div>
-        `;
-      var $node = $(template);
-      $node.find('.cover img').attr('src', movie.subject.images.small);
-      //console.log(movie.subject.images.small)
-      $node.find('.detail h2').text(movie.subject.title);
-      //console.log(movie.title)
-      $node.find('.collect').text(movie.subject.collect_count);
-      console.log(movie.collect_count);
-      $node.find('.year').text(movie.subject.year);
-      $node.find('.type').text(movie.subject.genres.join(' / '));
-      console.log(movie);
-      $node.find('.director').text(function () {
-        var directivesArr = [];
-        movie.subject.directors.forEach(function (item) {
-          directivesArr.push(item.name);
-        });
-        return directivesArr.join(' 、');
-      });
-      $node.find('.actor').text(function () {
-        var actorArr = [];
-        movie.subject.casts.forEach(function (item) {
-          actorArr.push(item.name);
-        });
-        return actorArr.join(' 、');
-      });
-
-      $('#UsBox').append($node);
-    });
-  };
-  $('.main').on('scroll', function () {
-    if ($('section').eq(0).height() - 10 <= $('.main').scrollTop() + $('.main').height()) {
-      usBox.start();
-    }
-  });
-  return {
-    init: function () {
-      new usBox();
-    }
-  };
-}();
-
-module.exports = UsBox;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function($) {var Common = __webpack_require__(7);
-
-var Search = function () {
-    function search() {
-        this.$target = $('#search');
-        this.$content = this.$target.find('.container');
-        this.keyword = '';
-        this.bind();
-    }
-
-    search.prototype = {
-        bind: function () {
-            var _this = this;
-            this.$target.find('.button').click(function () {
-                _this.keyword = _this.$target.find('input').val();
-                _this.start();
-            });
-        },
-
-        start: function () {
-            var _this = this;
-            this.getData(function (data) {
-                _this.render(data);
-            });
-        },
-
-        getData: function (callback) {
-            var _this = this;
-            _this.$target.find('.loading').show();
-            $.ajax({
-                url: '//api.douban.com/v2/movie/search',
-                dataType: 'jsonp',
-                data: {
-                    q: _this.keyword
-                }
-            }).done(function (ret) {
-                console.log(ret);
-                // this.appendHtml(ret);
-                callback && callback(ret);
-            }).fail(function () {
-                console.log('数据异常!');
-            }).always(function () {
-                _this.$target.find('.loading').hide();
-            });
-        },
-
-        render: function (data) {
-            var _this = this;
-            data.subjects.forEach(function (movie) {
-                _this.$content.append(Common.createNode(movie));
-            });
-        }
-    };
-
-    return {
-        init: function () {
-            new search();
-        }
-    };
-}();
-
-module.exports = Search;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var Common = {
@@ -2432,6 +2118,444 @@ module.exports = Search;
 };
 
 module.exports = Common;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var tab = __webpack_require__(4);
+var top250 = __webpack_require__(5);
+var usBox = __webpack_require__(6);
+var search = __webpack_require__(7);
+
+tab.init($('footer>div'), $('.main>section'));
+top250.init();
+usBox.init();
+search.init();
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {/* globals __webpack_amd_options__ */
+module.exports = __webpack_amd_options__;
+
+/* WEBPACK VAR INJECTION */}.call(exports, {}))
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var Tab = function () {
+  function tab(tabs, panels) {
+    this.$tabs = tabs; //$('footer>.item')
+    this.$panels = panels;
+    this.bind();
+  }
+  tab.prototype.bind = function () {
+    var self = this;
+    this.$tabs.on('click', function () {
+      var index = $(this).index();
+      $(this).addClass('active').siblings().removeClass('active');
+      self.$panels.hide().eq(index).fadeIn();
+    });
+  };
+  return {
+    init: function (tabs, panels) {
+      new tab(tabs, panels);
+    }
+  };
+}();
+
+module.exports = Tab;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var Common = __webpack_require__(1);
+
+var Top250 = function () {
+
+  function top250() {
+    this.$target = $('#top250');
+    this.$content = this.$target.find('.container');
+    this.index = 0;
+    this.isLoading = false;
+    this.isFinish = false;
+    this.bind();
+    this.start();
+  }
+
+  top250.prototype = {
+    bind: function () {
+      var _this = this;
+      this.$target.scroll(function () {
+        if (!_this.isFinish && Common.isToBottom(_this.$target, _this.$content)) {
+          _this.start();
+        }
+      });
+    },
+
+    start: function () {
+      var _this = this;
+      this.getData(function (data) {
+        _this.render(data);
+      });
+    },
+
+    getData: function (callback) {
+      var _this = this;
+      if (_this.isLoading) return;
+      _this.isLoading = true;
+      _this.$target.find('.loading').show();
+      $.ajax({
+        url: '//api.douban.com/v2/movie/top250',
+        dataType: 'jsonp',
+        data: {
+          start: _this.index || 0
+        }
+      }).done(function (ret) {
+        console.log(ret);
+        _this.index += 20;
+        if (_this.index >= ret.total) {
+          _this.isFinish = true;
+        }
+        // this.appendHtml(ret);
+        callback && callback(ret);
+      }).fail(function () {
+        console.log('数据异常!');
+      }).always(function () {
+        _this.isLoading = false;
+        _this.$target.find('.loading').hide();
+      });
+    },
+
+    render: function (data) {
+      var _this = this;
+      data.subjects.forEach(function (movie) {
+        _this.$content.append(Common.createNode(movie));
+      });
+    }
+  };
+
+  return {
+    init: function () {
+      new top250();
+    }
+  };
+}();
+
+module.exports = Top250;
+
+/*面向对象单页面实现
+var Top250 = (function(){
+  function top250() {
+    this.index = 0,
+    this.isLoading = false,
+    this.start()
+  }
+  top250.prototype.start = function(){
+    if(this.isLoading) return
+    this.isLoading = true
+    $('.loading').show()
+    var self = this
+    $.ajax({
+      url: 'http://api.douban.com/v2/movie/top250',
+      type: 'GET',
+      data: {
+        start: self.index,
+        count: 20
+      },
+      dataType: 'jsonp'
+    }).done(function(res){
+      console.log(res)
+      self.renderData(res)
+      self.index = self.index + 20
+    }).fail(function(){
+      console.log('error...')
+    }).always(function(){
+      self.isLoading = false
+      $('.loading').hide()
+    })
+  }
+  top250.prototype.renderData = function(data){
+    data.subjects.forEach(function(movie){
+      var template = `
+        <div class="item">
+          <a href="">
+            <div class="cover">
+              <img src="" alt="">
+            </div>
+            <div class="detail">
+              <h2>霸王别姬</h2>
+              <div class="extra">
+                <span class="score"></span>分 /
+                <span class="collect"></span>收藏
+              </div>
+              <div class="extra">
+                <span class="year"></span> /
+                <span class="type"></span>
+              </div>
+              <div class="director">导演：张艺谋</div>
+              <div class="actor">主演：张艺谋 葛优</div>
+            </div>
+          </a>
+        </div>
+        `
+        var $node = $(template)
+        $node.find('.cover img').attr('src',movie.images.small)
+        //console.log(movie.images.small)
+        $node.find('.detail h2').text(movie.title)
+        //console.log(movie.title)
+        $node.find('.score').text(movie.rating.average)
+        //console.log(movie.rating.average)
+        $node.find('.collect').text(movie.collect_count)
+        //console.log(movie.collect_count)
+        $node.find('.year').text(movie.year)
+        $node.find('.type').text(movie.genres.join(' / '))
+        $node.find('.director').text(function(){
+          var directivesArr = []
+          movie.directors.forEach(function(item){
+            directivesArr.push(item.name)
+          })
+          return directivesArr.join(' 、')
+        })
+        $node.find('.actor').text(function(){
+          var actorArr = []
+          movie.casts.forEach(function(item){
+            actorArr.push(item.name)
+          })
+          return actorArr.join(' 、')
+        })
+  
+        $('#top250').append($node)
+      })
+  }
+  return {
+    init: function(){
+      new top250()
+    }
+  }
+})()
+
+module.exports = Top250
+*/
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var Common = __webpack_require__(1);
+
+var UsBox = function () {
+  function usbox() {
+    this.$target = $('#usBox');
+    this.$content = this.$target.find('.container');
+    this.start();
+  }
+
+  usbox.prototype = {
+    start: function () {
+      var _this = this;
+      this.getData(function (data) {
+        _this.render(data);
+      });
+    },
+
+    getData: function (callback) {
+      var _this = this;
+      _this.$target.find('.loading').show();
+      $.ajax({
+        url: '//api.douban.com/v2/movie/us_box',
+        dataType: 'jsonp'
+      }).done(function (ret) {
+        console.log(ret);
+        // this.appendHtml(ret);
+        callback && callback(ret);
+      }).fail(function () {
+        console.log('数据异常!');
+      }).always(function () {
+        _this.$target.find('.loading').hide();
+      });
+    },
+
+    render: function (data) {
+      var _this = this;
+      data.subjects.forEach(function (movie) {
+        _this.$content.append(Common.createNode(movie.subject));
+      });
+    }
+  };
+
+  return {
+    init: function () {
+      new usbox();
+    }
+  };
+}();
+
+module.exports = UsBox;
+
+/* 面向对象实现单页面效果
+var UsBox = (function(){
+  function usBox() {
+    this.index = 0,
+    this.isLoading = false,
+    this.start()
+  }
+  usBox.prototype.start = function(){
+    if(this.isLoading) return
+    this.isLoading = true
+    $('.loading').show()
+    var self = this
+    $.ajax({
+      url: 'http://api.douban.com//v2/movie/us_box',
+      type: 'GET',
+      dataType: 'jsonp'
+    }).done(function(res){
+      console.log(res)
+      self.renderData(res)
+    }).fail(function(){
+      console.log('error...')
+    }).always(function(){
+      self.isLoading = false
+      $('.loading').hide()
+    })
+  }
+  usBox.prototype.renderData = function(data){
+    console.log(data.subjects)
+    data.subjects.forEach(function(movie){
+      var template = `
+        <div class="item">
+          <a href="">
+            <div class="cover">
+              <img src="" alt="">
+            </div>
+            <div class="detail">
+              <h2>霸王别姬</h2>
+              <div class="extra">
+                <span class="collect"></span>收藏
+              </div>
+              <div class="extra">
+                <span class="year"></span> /
+                <span class="type"></span>
+              </div>
+              <div class="director">导演：张艺谋</div>
+              <div class="actor">主演：张艺谋 葛优</div>
+            </div>
+          </a>
+        </div>
+        `
+        var $node = $(template)
+        $node.find('.cover img').attr('src',movie.subject.images.small)
+        //console.log(movie.subject.images.small)
+        $node.find('.detail h2').text(movie.subject.title)
+        //console.log(movie.title)
+        $node.find('.collect').text(movie.subject.collect_count)
+        console.log(movie.collect_count)
+        $node.find('.year').text(movie.subject.year)
+        $node.find('.type').text(movie.subject.genres.join(' / '))
+        console.log(movie)
+        $node.find('.director').text(function(){
+          var directivesArr = []
+          movie.subject.directors.forEach(function(item){
+            directivesArr.push(item.name)
+          })
+          return directivesArr.join(' 、')
+        })
+        $node.find('.actor').text(function(){
+          var actorArr = []
+          movie.subject.casts.forEach(function(item){
+            actorArr.push(item.name)
+          })
+          return actorArr.join(' 、')
+        })
+  
+        $('#UsBox').append($node)
+      })
+  }
+  return {
+    init: function(){
+      new usBox()
+    }
+  }
+})()
+
+module.exports = UsBox;
+*/
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var Common = __webpack_require__(1);
+
+var Search = function () {
+    function search() {
+        this.$target = $('#search');
+        this.$content = this.$target.find('.container');
+        this.keyword = '';
+        this.bind();
+    }
+
+    search.prototype = {
+        bind: function () {
+            var _this = this;
+            this.$target.find('.button').click(function () {
+                _this.keyword = _this.$target.find('input').val();
+                _this.start();
+            });
+        },
+
+        start: function () {
+            var _this = this;
+            this.getData(function (data) {
+                _this.render(data);
+            });
+        },
+
+        getData: function (callback) {
+            var _this = this;
+            _this.$target.find('.loading').show();
+            $.ajax({
+                url: '//api.douban.com/v2/movie/search',
+                dataType: 'jsonp',
+                data: {
+                    q: _this.keyword
+                }
+            }).done(function (ret) {
+                console.log(ret);
+                // this.appendHtml(ret);
+                callback && callback(ret);
+            }).fail(function () {
+                console.log('数据异常!');
+            }).always(function () {
+                _this.$target.find('.loading').hide();
+            });
+        },
+
+        render: function (data) {
+            var _this = this;
+            data.subjects.forEach(function (movie) {
+                _this.$content.append(Common.createNode(movie));
+            });
+        }
+    };
+
+    return {
+        init: function () {
+            new search();
+        }
+    };
+}();
+
+module.exports = Search;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ })

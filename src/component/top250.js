@@ -1,3 +1,87 @@
+var Common = require("./common.js");
+
+var Top250 = (function(){
+
+    function top250(){
+        this.$target = $('#top250');
+        this.$content = this.$target.find('.container');
+        this.index = 0;
+        this.isLoading = false;
+        this.isFinish = false;
+        this.bind();
+        this.start();
+    }
+
+    top250.prototype = {
+        bind: function(){
+            var _this = this;
+            this.$target.scroll(function(){
+                 if(!_this.isFinish && Common.isToBottom(_this.$target,_this.$content) ){
+                    _this.start();
+                 }
+            })
+        },
+
+        start: function(){
+             var _this = this;
+            this.getData(function(data){
+               _this.render(data); 
+            })
+        },
+
+        getData: function(callback){
+            var _this = this;
+            if(_this.isLoading) return; 
+            _this.isLoading = true ;
+            _this.$target.find('.loading').show();
+            $.ajax({
+              url: '//api.douban.com/v2/movie/top250',
+              dataType: 'jsonp',
+              data:{
+                start: _this.index||0
+              }  
+            }).done(function(ret){
+              console.log(ret)
+              _this.index += 20;
+              if(_this.index >= ret.total){
+                  _this.isFinish = true;
+              }
+              // this.appendHtml(ret);
+              callback&&callback(ret);     
+            }).fail(function(){
+              console.log('数据异常!')
+            }).always(function(){
+              _this.isLoading = false;  
+              _this.$target.find('.loading').hide();
+            })
+        },
+    
+        render: function(data){
+            var _this = this;
+            data.subjects.forEach(function(movie) {
+                _this.$content.append(Common.createNode(movie));
+            });
+        } 
+    }
+
+    return {
+        init: function(){
+            new top250()
+        }
+    }
+
+})()
+
+module.exports = Top250
+
+
+
+
+
+
+
+
+/*面向对象单页面实现
 var Top250 = (function(){
   function top250() {
     this.index = 0,
@@ -81,11 +165,6 @@ var Top250 = (function(){
         $('#top250').append($node)
       })
   }
-  $('.main').on('scroll',function(){
-    if($('section').eq(0).height()-10 <= $('.main').scrollTop()+$('.main').height()){
-      top250.start()
-    }
-  })
   return {
     init: function(){
       new top250()
@@ -94,3 +173,4 @@ var Top250 = (function(){
 })()
 
 module.exports = Top250
+*/

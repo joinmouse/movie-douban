@@ -1,4 +1,5 @@
-body {
+html,body,.main{
+  height: 100%;
   position: relative;
 }
 header {
@@ -21,43 +22,55 @@ header h2 {
   color: green;
 }
 
-.main {
-  height: calc(100vh - 50px);
-  overflow: scroll;
-  -webkit-overflow-scrolling: touch;
-}
-.main>section {
+/*--main--*/
+.main > section {
   display: none;
+  height: calc(100% - 50px);
+  padding: 0 10px ; 
+  background: #fff;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch; 
 }
-.main>section:first-child {
+section:nth-child(1) {
   display: block;
 }
-.item {
-  padding: 0 15px;
-  border-bottom: 1px solid #ccc;
-}
-.item > a{
-  display: block;
+section .container .subject {
   display: flex;
+  padding: 5px;
+  margin: 10px 0;
+  border: 1px solid #e2dbdb;
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.4);
+  border-radius: 5px;
 }
-.item .cover,
-.item .cover img {
+.container .subject .movie-pic {
+  width: 80px;
+  margin-right: 10px;
+}
+.subject .movie-pic img {
   width: 80px;
 }
-.item .detail {
+.subject .movie-info {
   flex: 1;
-  padding-left: 10px;
+  line-height: 1.4em;
 }
-.detail h2 {
+
+.movie-info .movie-name-text {
   font-size: 16px;
+  font-weight: 700;
+  color: #494949;
 }
-.detail .extra {
-  color: #999;
-  margin-top: 5px;
+.movie-info .movie-name span {
+  font-size: 16px;
+  color: #888;
 }
-.detail .score {
-  color: red;
+.movie-info .p1 {
+  color: #666;
 }
+.movie-info .score .number {
+  color: #FF5100;
+}
+/*------------*/
+
 .loading {
   padding: 5px;
   text-align: center;
@@ -103,64 +116,26 @@ section .search-area .button{
   cursor: pointer;
 }
 
+
+/*footer*/
 footer {
   position: absolute;
   bottom: 0;
-  height: 50px;
   width: 100%;
+  height: 50px;
   display: flex;
-  background: white;
+  justify-content: space-around;
+  align-items: center;
+  background: #fff;
+  box-shadow: 0 -5px 7px -4px  rgba(0,0,0,.3);
 }
-footer>div {
-  flex: 1;
+footer .item {
+  color: black;
   text-align: center;
 }
-footer>div>span {
-  display: block;
-  padding-top: 5px;
-}
-footer>.active {
+footer .active {
   color: green;
 }
-footer>.active svg {
-  fill: green;
-}
-
-
-/*search*/
-section .container .subject {
-  display: flex;
-  padding: 5px;
-  margin: 10px 0;
-  border: 1px solid #e2dbdb;
-  box-shadow: 0px 0px 5px rgba(0,0,0,0.4);
-  border-radius: 5px;
-}
-.container .subject .movie-pic {
-  width: 80px;
-  margin-right: 10px;
-}
-.subject .movie-pic img {
-  width: 80px;
-}
-.subject .movie-info {
-  flex: 1;
-  line-height: 1.4em;
-}
-
-.movie-info .movie-name-text {
-  font-size: 16px;
-  font-weight: 700;
-  color: #494949;
-}
-.movie-info .movie-name span {
-  font-size: 16px;
-  color: #888;
-}
-.movie-info .p1 {
-  color: #666;
-}
-
-.movie-info .score .number {
-  color: #FF5100;
+footer .item span {
+  display: block; 
 }
