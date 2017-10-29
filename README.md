@@ -6,7 +6,7 @@ chrome浏览器下请设置为移动端设备查看：
 [预览地址](http://www.guohezu.me/movie-douban/home.html)
 
 手机查看效果，请扫描下列二维码
-![](http://oyfsvfxoa.bkt.clouddn.com/douban-movie.png)
+http://oyfsvfxoa.bkt.clouddn.com/douban-movie.png
 
 ## 运用技术
 - 基本：HTML5 、CSS3、JavaScript
