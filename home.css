@@ -109,6 +109,7 @@ footer {
   height: 50px;
   width: 100%;
   display: flex;
+  background: white;
 }
 footer>div {
   flex: 1;
@@ -123,4 +124,43 @@ footer>.active {
 }
 footer>.active svg {
   fill: green;
+}
+
+
+/*search*/
+section .container .subject {
+  display: flex;
+  padding: 5px;
+  margin: 10px 0;
+  border: 1px solid #e2dbdb;
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.4);
+  border-radius: 5px;
+}
+.container .subject .movie-pic {
+  width: 80px;
+  margin-right: 10px;
+}
+.subject .movie-pic img {
+  width: 80px;
+}
+.subject .movie-info {
+  flex: 1;
+  line-height: 1.4em;
+}
+
+.movie-info .movie-name-text {
+  font-size: 16px;
+  font-weight: 700;
+  color: #494949;
+}
+.movie-info .movie-name span {
+  font-size: 16px;
+  color: #888;
+}
+.movie-info .p1 {
+  color: #666;
+}
+
+.movie-info .score .number {
+  color: #FF5100;
 }

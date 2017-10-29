@@ -1,0 +1,26 @@
+{
+  "name": "movie-douban",
+  "version": "1.0.0",
+  "description": "豆瓣电影 ",
+  "main": "home.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joinmouse/movie-douban.git"
+  },
+  "author": "wuqi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joinmouse/movie-douban/issues"
+  },
+  "homepage": "https://github.com/joinmouse/movie-douban#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "webpack": "^3.8.1"
+  }
+}
